@@ -1,127 +1,205 @@
-@import "mocha.css"; 
+/* ~/.config/waybar/style.css */
+
+/* Catppuccin Mocha inspired */
+@define-color base       #1e1e2e;
+@define-color mantle     #181825;
+@define-color crust      #11111b;
+
+@define-color text       #cdd6f4;
+@define-color subtext0   #a6adc8;
+@define-color subtext1   #bac2de;
+
+@define-color surface0   #313244;
+@define-color surface1   #45475a;
+@define-color surface2   #585b70;
+
+@define-color overlay0   #6c7086;
+@define-color overlay1   #7f849c;
+@define-color overlay2   #9399b2;
+
+@define-color blue       #89b4fa;
+@define-color lavender   #b4befe;
+@define-color sapphire   #74c7ec;
+@define-color sky        #89dceb;
+@define-color teal       #94e2d5;
+@define-color green      #a6e3a1;
+@define-color yellow     #f9e2af;
+@define-color peach      #fab387;
+@define-color maroon     #eba0ac;
+@define-color red        #f38ba8;
+@define-color mauve      #cba6f7;
+@define-color pink       #f5c2e7;
+@define-color flamingo   #f2cdcd;
+@define-color rosewater  #f5e0dc;
 
 * {
-    font-family: "MesloLGS Nerd Font Mono Bold";
-    font-size: 16px;
-    min-height: 0;
-    font-weight: bold;
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 14px;
+  font-weight: 600;
+  min-height: 0;
 }
 
 window#waybar {
-    background: transparent;
-    background-color: @crust;
-    color: @overlay0;
-    transition-property: background-color;
-    transition-duration: 0.1s;
-    border-bottom: 1px solid @overlay1;
+  background: transparent;
+  color: @text;
 }
 
-#window {
-    margin: 8px;
-    padding-left: 8;
-    padding-right: 8;
+tooltip {
+  background: @base;
+  color: @text;
+  border-radius: 10px;
+  border: 1px solid @surface1;
+  padding: 8px;
 }
 
-button {
-    box-shadow: inset 0 -3px transparent;
-    border: none;
-    border-radius: 0;
+tooltip label {
+  color: @text;
 }
 
-button:hover {
-    background: inherit;
-    color: @mauve;
-    border-top: 2px solid @mauve;
-}
-
-#workspaces button {
-    padding: 0 4px;
-}
-
-#workspaces button.focused {
-    background-color: rgba(0, 0, 0, 0.3);
-    color: @rosewater;
-    border-top: 2px solid @rosewater;
-}
-
-#workspaces button.active {
-    background-color: rgba(0, 0, 0, 0.3);
-    color: @mauve;
-    border-top: 2px solid @mauve;
-}
-
-#workspaces button.urgent {
-    background-color: #eb4d4b;
-}
-
+/* shared module style */
+#custom-launcher,
+#workspaces,
+#mpris,
+#network,
 #pulseaudio,
-#clock,
-#battery,
+#language,
 #cpu,
 #memory,
-#disk,
-#temperature,
-#backlight,
-#wireplumber,
-#tray,
-#network,
-#mode,
-#scratchpad {
-  margin-top: 2px;
-  margin-bottom: 2px;
-  margin-left: 4px;
-  margin-right: 4px;
-  padding-left: 4px;
-  padding-right: 4px;
+#battery,
+#clock,
+#tray {
+  background: alpha(@surface0, 0.95);
+  color: @text;
+  border-radius: 14px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  margin-left: 6px;
+  margin-right: 6px;
+  padding: 0 12px;
+  min-height: 34px;
 }
 
-#clock {
-    color: @maroon;
-    border-bottom: 2px solid @maroon;
+/* launcher */
+#custom-launcher {
+  color: @mauve;
+  padding-left: 11px;
+  padding-right: 16px;
+  font-size: 18px;
 }
 
-#clock.date {
-    color: @mauve;
-    border-bottom: 2px solid @mauve;
+/* workspaces */
+#workspaces,
+#workspaces button {
+    all: unset;
+}
+
+#workspaces {
+    margin: 0 6px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    padding: 4px;
+    border-radius: 14px;
+    background-color: #363a4f;
+}
+
+#workspaces > button {
+    min-width: 28px;
+    padding: 0 12px;
+    margin: 0 2px;
+    border-radius: 10px;
+    color: #a6adc8;
+    font-weight: 700;
+}
+
+#workspaces > button label {
+    margin-left: -1px;
+}
+
+#workspaces > button.empty {
+    color: #6c7086;
+}
+
+#workspaces > button.visible {
+    color: #b4befe;
+}
+
+#workspaces > button.active {
+    color: #cba6f7;
+    background: rgba(203, 166, 247, 0.18);
+}
+
+#workspaces > button:hover {
+    background: rgba(88, 91, 112, 0.6);
+    color: #cdd6f4;
+}
+
+/* center player */
+#mpris {
+  color: @green;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* right-side module colors */
+#network {
+  color: @sky;
 }
 
 #pulseaudio {
-    color: @blue;
-    border-bottom: 2px solid @blue;
+  color: @blue;
 }
 
-#network {
-    color: @yellow;
-    border-bottom: 2px solid @yellow;
+#language {
+  color: @yellow;
 }
 
-#idle_inhibitor {
-    margin-right: 12px;
-    color: #7cb342;
+#cpu {
+  color: @peach;
 }
 
-#idle_inhibitor.activated {
-    color: @red;
+#memory {
+  color: @green;
 }
 
 #battery {
-    color: @green;
-    border-bottom: 2px solid @green;
+  color: @teal;
 }
 
-/* If workspaces is the leftmost module, omit left margin */
-.modules-left>widget:first-child>#workspaces {
-    margin-left: 0;
+#battery.charging,
+#battery.plugged {
+  color: @green;
 }
 
-/* If workspaces is the rightmost module, omit right margin */
-.modules-right>widget:last-child>#workspaces {
-    margin-right: 0;
+#battery.warning:not(.charging) {
+  color: @yellow;
 }
 
-#custom-vpn {
-    color: @lavender;
-    border-radius: 15px;
-    padding-left: 6px;
-    padding-right: 6px;
+#battery.critical:not(.charging) {
+  color: @red;
+}
+
+#clock {
+  color: @lavender;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+#tray {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* optional subtle urgency */
+@keyframes blink-critical {
+  to {
+    background-color: alpha(@red, 0.25);
+  }
+}
+
+#battery.critical:not(.charging) {
+  animation-name: blink-critical;
+  animation-duration: 0.8s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
