@@ -5,10 +5,10 @@
   "passthrough": false,
   "gtk-layer-shell": true,
 
-  "margin-top": 4,
+  "margin-top": 2,
   "margin-left": 8,
   "margin-right": 8,
-  "spacing": 6,
+  "spacing": 0,
 
   "modules-left": [
     "custom/launcher",
@@ -18,9 +18,10 @@
   "modules-center": [
     "mpris"
   ],
-
   "modules-right": [
+    "custom/updates",
     "network",
+    "bluetooth",
     "pulseaudio",
     "hyprland/language",
     "cpu",
@@ -29,6 +30,16 @@
     "clock",
     "tray"
   ],
+
+  "custom/updates": {
+      "format": "󰏔 {}",
+      "escape": true,
+      "return-type": "json",       
+      "exec": "~/.config/waybar/updates.sh",
+      "restart-interval": 60,
+      "on-click": "kitty -e yay -Syu",
+      "tooltip": false
+  },
 
   "custom/launcher": {
     "format": "",
@@ -69,8 +80,7 @@
       "default": ""
     }
   },
-
-  "mpris": {
+ "mpris": {
     "interval": 1,
     "format": "{player_icon} {dynamic}",
     "format-paused": "󰏤 {dynamic}",
@@ -84,27 +94,34 @@
     "max-length": 45,
     "tooltip": true
   },
-
   "network": {
-    "format-wifi": " ",
+    "format-wifi": "  {signalStrength}%",
     "format-ethernet": "󰈀",
     "format-disconnected": "󰖪",
     "tooltip-format": "{ifname}: {ipaddr}",
-    "max-length": 20,
     "on-click": "kitty -e nmtui"
   },
 
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "",
+    "format-connected": "",
+    "format-connected-battery": " {device_battery_percentage}%",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias} ({device_battery_percentage}%)",
+    "on-click": "blueman-manager",
+    "max-length": 16
+  },
+
   "pulseaudio": {
-    "format": "{icon} {volume:2}%",
-    "format-bluetooth": "{icon} {volume:2}% ",
-    "format-muted": "󰝟 mute",
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}% ",
+    "format-muted": "󰝟",
     "format-icons": {
       "headphones": "",
-      "default": [
-        "",
-        "",
-        ""
-      ]
+      "default": ["", "", ""]
     },
     "scroll-step": 5,
     "on-click": "pamixer -t",
@@ -113,14 +130,14 @@
   },
 
   "hyprland/language": {
-    "format": " {short}",
+    "format": "  {short}",
     "on-click": "hyprctl switchxkblayout current next",
     "tooltip": false
   },
 
   "cpu": {
     "interval": 2,
-    "format": " {usage:2}%",
+    "format": " {usage:>2}%",
     "on-click": "plasma-systemmonitor",
     "tooltip": true
   },
@@ -144,20 +161,10 @@
     "format": "{icon} {capacity}%",
     "format-charging": " {capacity}%",
     "format-plugged": " {capacity}%",
-    "format-full": "{icon} full",
+    "format-full": "{icon}",
     "format-alt": "{icon} {time}",
     "format-icons": [
-      "󰂎",
-      "󰁺",
-      "󰁻",
-      "󰁼",
-      "󰁽",
-      "󰁾",
-      "󰁿",
-      "󰂀",
-      "󰂁",
-      "󰂂",
-      "󰁹"
+      "󰂎","󰁺","󰁻","󰁼","󰁽","󰁾","󰁿","󰂀","󰂁","󰂂","󰁹"
     ],
     "tooltip": true,
     "tooltip-format": "{timeTo} {power}W"
@@ -165,8 +172,8 @@
 
   "clock": {
     "interval": 1,
-    "format": " {:%H:%M}",
-    "format-alt": " {:%d.%m.%Y  %H:%M:%S}",
+    "format": "{:%H:%M}",
+    "format-alt": "{:%d.%m.%Y  %H:%M:%S}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
       "mode": "month",
@@ -174,15 +181,14 @@
       "weeks-pos": "right",
       "on-scroll": 1,
       "format": {
-        "months": "<span color='#cba6f7'><b>{}</b></span>",
-        "days": "<span color='#f5c2e7'><b>{}</b></span>",
-        "weeks": "<span color='#94e2d5'><b>W{}</b></span>",
-        "weekdays": "<span color='#f9e2af'><b>{}</b></span>",
-        "today": "<span color='#f38ba8'><b><u>{}</u></b></span>"
+        "months": "<span color='#7aa2f7'><b>{}</b></span>",
+        "days": "<span color='#c0caf5'><b>{}</b></span>",
+        "weeks": "<span color='#73daca'><b>W{}</b></span>",
+        "weekdays": "<span color='#e0af68'><b>{}</b></span>",
+        "today": "<span color='#bb9af7'><b><u>{}</u></b></span>"
       }
     }
   },
-
   "tray": {
     "icon-size": 16,
     "spacing": 8
